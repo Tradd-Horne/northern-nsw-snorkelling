@@ -22,8 +22,8 @@
     --color-footer-bg: #1A3A4A;
     --color-footer-text: #C8D6DB;
 
-    --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    --font-sans: 'Source Sans 3', 'Segoe UI', Roboto, sans-serif;
+    --font-heading: "Jost", "Trebuchet MS", sans-serif;
+    --font-body: "Zilla Slab", Georgia, serif;
 
     --max-width: 740px;
     --max-width-wide: 960px;
@@ -45,12 +45,14 @@ html {
 }
 
 body {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-weight: 400;
-    line-height: 1.75;
+    line-height: 1.6;
     color: var(--color-text);
     background-color: var(--color-bg);
     overflow-x: hidden;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
 }
 
 img {
@@ -70,10 +72,12 @@ a:hover {
 }
 
 /* --- Typography --- */
-h1, h2, h3 {
-    font-family: var(--font-serif);
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
     color: var(--color-heading);
-    line-height: 1.25;
 }
 
 em {
@@ -88,61 +92,113 @@ strong {
 /* --- Hero --- */
 .hero {
     text-align: center;
-    padding: 3rem 2rem 2rem;
-    max-width: var(--max-width-wide);
+    padding: 6rem 2rem 2rem;
+    max-width: 100%;
     margin: 0 auto;
-}
-
-.hero-fish-row {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.3s forwards;
-}
-
-.hero-fish {
+    position: relative;
+    min-height: 70vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 0.3rem;
+    overflow: hidden;
 }
 
-.fish-silhouette {
-    width: 80px;
-    height: 40px;
-    color: var(--color-accent);
-    transition: transform 0.3s ease, color 0.3s ease;
+.hero-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
 }
 
-.hero-fish:hover .fish-silhouette {
-    transform: translateY(-4px);
-    color: var(--color-accent-teal);
+.hero-fish-img {
+    position: absolute;
+    opacity: 0;
+    max-width: none;
 }
 
-.hero-fish-label {
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: 500;
-    color: var(--color-text-light);
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
+/* Left side fish - flipped so heads point right (toward center) */
+/* Top left - salmon angled down-right toward center */
+.hero-fish-top-left {
+    top: -5%;
+    left: -5%;
+    width: 320px;
+    transform: rotate(25deg) scaleX(-1);
+    animation: fishFadeInTopLeft 1s ease 0.2s forwards;
+}
+
+/* Bottom left - flathead angled up-right toward center */
+.hero-fish-bottom-left {
+    bottom: -10%;
+    left: -8%;
+    width: 300px;
+    transform: rotate(-20deg) scaleX(-1);
+    animation: fishFadeInBottomLeft 1s ease 0.6s forwards;
+}
+
+/* Right side fish - heads naturally point left (toward center) */
+/* Top right - bream angled down-left toward center */
+.hero-fish-top-right {
+    top: -8%;
+    right: -8%;
+    width: 350px;
+    transform: rotate(-25deg);
+    animation: fishFadeInTopRight 1s ease 0.4s forwards;
+}
+
+/* Bottom right - leopard shark angled up-left toward center */
+.hero-fish-bottom-right {
+    bottom: -5%;
+    right: -5%;
+    width: 340px;
+    transform: rotate(20deg);
+    animation: fishFadeInBottomRight 1s ease 0.8s forwards;
+}
+
+/* Center right - shovel-nosed ray pointing left toward center */
+.hero-fish-center-right {
+    top: 50%;
+    right: -10%;
+    width: 280px;
+    transform: translateY(-50%) rotate(0deg);
+    animation: fishFadeInCenterRight 1s ease 1s forwards;
+}
+
+@keyframes fishFadeInTopLeft {
+    from { opacity: 0; transform: rotate(25deg) scaleX(-1) scale(0.8); }
+    to { opacity: 1; transform: rotate(25deg) scaleX(-1) scale(1); }
+}
+@keyframes fishFadeInTopRight {
+    from { opacity: 0; transform: rotate(-25deg) scale(0.8); }
+    to { opacity: 1; transform: rotate(-25deg) scale(1); }
+}
+@keyframes fishFadeInBottomLeft {
+    from { opacity: 0; transform: rotate(-20deg) scaleX(-1) scale(0.8); }
+    to { opacity: 1; transform: rotate(-20deg) scaleX(-1) scale(1); }
+}
+@keyframes fishFadeInBottomRight {
+    from { opacity: 0; transform: rotate(20deg) scale(0.8); }
+    to { opacity: 1; transform: rotate(20deg) scale(1); }
+}
+@keyframes fishFadeInCenterRight {
+    from { opacity: 0; transform: translateY(-50%) rotate(0deg) scale(0.8); }
+    to { opacity: 1; transform: translateY(-50%) rotate(0deg) scale(1); }
 }
 
 .hero-title {
-    font-size: 3.2rem;
-    font-weight: 700;
-    color: var(--color-heading);
-    margin-bottom: 0.8rem;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: #3d3d3d;
     opacity: 0;
     animation: fadeInUp 1s ease 0.6s forwards;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
 }
 
 .hero-subtitle {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-size: 1.1rem;
     font-weight: 300;
     color: var(--color-text-light);
@@ -217,7 +273,7 @@ strong {
 }
 
 .lead-text {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 400;
     font-style: italic;
@@ -227,7 +283,7 @@ strong {
 }
 
 .part-label {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -279,7 +335,7 @@ strong {
 }
 
 .bubble-label {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-weight: 600;
     fill: #fff;
     pointer-events: none;
@@ -287,7 +343,7 @@ strong {
 }
 
 .bubble-count {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-weight: 400;
     font-size: 12px;
     fill: rgba(255,255,255,0.8);
@@ -314,7 +370,7 @@ strong {
 }
 
 .bubble-tooltip h4 {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1rem;
     color: var(--color-heading);
     margin-bottom: 0.3rem;
@@ -378,7 +434,7 @@ strong {
 }
 
 .species-card h4 {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 0.95rem;
     color: var(--color-heading);
     margin-bottom: 0.2rem;
@@ -428,19 +484,19 @@ strong {
 }
 
 .bar-label {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-size: 13px;
     fill: var(--color-text);
 }
 
 .bar-value {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-size: 11px;
     fill: var(--color-text-light);
 }
 
 .axis text {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-size: 12px;
     fill: var(--color-text-light);
 }
@@ -498,7 +554,7 @@ strong {
 }
 
 .map-info-panel h3 {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
     color: var(--color-heading);
@@ -574,7 +630,7 @@ strong {
 }
 
 .seasonal-tooltip h4 {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     margin-bottom: 0.3rem;
     font-size: 0.9rem;
 }
@@ -623,7 +679,7 @@ strong {
 }
 
 .cta-spot strong {
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     display: block;
     margin-bottom: 0.3rem;
     color: var(--color-heading);
@@ -843,6 +899,11 @@ strong {
         font-size: 16px;
     }
 
+    .hero {
+        min-height: 60vh;
+        padding: 4rem 1.5rem 2rem;
+    }
+
     .hero-title {
         font-size: 2.2rem;
     }
@@ -859,17 +920,30 @@ strong {
         font-size: 1.4rem;
     }
 
-    .hero-fish-row {
-        gap: 0.8rem;
+    /* Scale down fish images on tablet */
+    .hero-fish-top-left {
+        width: 220px;
+        top: -3%;
+        left: -8%;
     }
-
-    .fish-silhouette {
-        width: 55px;
-        height: 28px;
+    .hero-fish-top-right {
+        width: 240px;
+        top: -5%;
+        right: -10%;
     }
-
-    .hero-fish-label {
-        font-size: 0.55rem;
+    .hero-fish-bottom-left {
+        width: 200px;
+        bottom: -5%;
+        left: -10%;
+    }
+    .hero-fish-bottom-right {
+        width: 230px;
+        bottom: -3%;
+        right: -8%;
+    }
+    .hero-fish-center-right {
+        width: 180px;
+        right: -12%;
     }
 
     .footer-content {
@@ -899,17 +973,39 @@ strong {
 }
 
 @media (max-width: 480px) {
+    .hero {
+        min-height: 50vh;
+        padding: 3rem 1rem 1.5rem;
+    }
+
     .hero-title {
         font-size: 1.8rem;
     }
 
-    .hero-fish-row {
-        gap: 0.5rem;
+    /* Scale down fish images on mobile */
+    .hero-fish-top-left {
+        width: 140px;
+        top: -2%;
+        left: -10%;
     }
-
-    .fish-silhouette {
-        width: 40px;
-        height: 20px;
+    .hero-fish-top-right {
+        width: 160px;
+        top: -3%;
+        right: -12%;
+    }
+    .hero-fish-bottom-left {
+        width: 130px;
+        bottom: -3%;
+        left: -12%;
+    }
+    .hero-fish-bottom-right {
+        width: 150px;
+        bottom: -2%;
+        right: -10%;
+    }
+    .hero-fish-center-right {
+        width: 120px;
+        right: -15%;
     }
 
     .section {

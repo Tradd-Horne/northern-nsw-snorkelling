@@ -29,7 +29,6 @@
         .then(r => r.json())
         .then(data => {
             DATA = data;
-            initBubbleChart();
             initSpeciesGrid();
             initBarChart();
             initMap();
@@ -40,21 +39,21 @@
         .catch(err => console.error('Failed to load data:', err));
 
     // ==========================================
-    // PART 1 — Bubble Chart (Fish Groups)
+    // PART 1 — Bubble Chart (Fish Groups) - Heart Layout
     // ==========================================
     function initBubbleChart() {
         const container = document.getElementById('viz-bubble-chart');
         container.innerHTML = '';
 
         const width = Math.min(container.clientWidth, 900);
-        const height = Math.max(450, width * 0.55);
+        const height = Math.max(500, width * 0.6);
 
         const svg = d3.select(container)
             .append('svg')
             .attr('viewBox', `0 0 ${width} ${height}`)
             .attr('preserveAspectRatio', 'xMidYMid meet')
             .style('width', '100%')
-            .style('max-height', '550px');
+            .style('max-height', '600px');
 
         // Tooltip
         const tooltip = d3.select(container)
@@ -63,27 +62,46 @@
 
         const groups = DATA.fishGroups;
 
-        // Pack layout
-        const pack = d3.pack()
-            .size([width - 40, height - 40])
-            .padding(6);
+        // Heart shape parametric equation
+        // x = 16 * sin^3(t)
+        // y = 13*cos(t) - 5*cos(2t) - 2*cos(3t) - cos(4t)
+        function heartX(t) {
+            return 16 * Math.pow(Math.sin(t), 3);
+        }
+        function heartY(t) {
+            return -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        }
 
-        const root = d3.hierarchy({ children: groups })
-            .sum(d => d.searchInterest * d.searchInterest * 0.8 + d.count * 10);
+        // Position bubbles along heart shape
+        const centerX = width / 2;
+        const centerY = height / 2 + 20;
+        const scale = Math.min(width, height) / 50;
 
-        pack(root);
+        // Sort by count for consistent sizing
+        const sortedGroups = [...groups].sort((a, b) => b.count - a.count);
+
+        // Distribute bubbles along heart perimeter
+        const positions = sortedGroups.map((group, i) => {
+            const t = (i / sortedGroups.length) * 2 * Math.PI - Math.PI / 2;
+            return {
+                ...group,
+                x: centerX + heartX(t) * scale,
+                y: centerY + heartY(t) * scale,
+                r: Math.sqrt(group.count) * 6 + 20
+            };
+        });
 
         const nodes = svg.selectAll('.bubble-group')
-            .data(root.leaves())
+            .data(positions)
             .enter()
             .append('g')
             .attr('class', 'bubble-group')
-            .attr('transform', d => `translate(${d.x + 20}, ${d.y + 20})`);
+            .attr('transform', d => `translate(${d.x}, ${d.y})`);
 
         // Circles
         nodes.append('circle')
             .attr('r', 0)
-            .attr('fill', d => d.data.color)
+            .attr('fill', d => d.color)
             .attr('fill-opacity', 0.85)
             .transition()
             .duration(800)
@@ -94,33 +112,32 @@
         nodes.append('text')
             .attr('class', 'bubble-label')
             .attr('dy', '-0.2em')
-            .text(d => d.data.name)
-            .style('font-size', d => Math.max(9, d.r / 4.5) + 'px')
+            .text(d => d.name)
+            .style('font-size', d => Math.max(9, d.r / 4) + 'px')
             .style('opacity', 0)
             .transition()
             .delay(800)
             .duration(400)
-            .style('opacity', d => d.r > 30 ? 1 : 0);
+            .style('opacity', 1);
 
         // Count labels
         nodes.append('text')
             .attr('class', 'bubble-count')
             .attr('dy', '1.1em')
-            .text(d => `${d.data.count} species`)
-            .style('font-size', d => Math.max(8, d.r / 5.5) + 'px')
+            .text(d => `${d.count} species`)
+            .style('font-size', d => Math.max(8, d.r / 5) + 'px')
             .style('opacity', 0)
             .transition()
             .delay(900)
             .duration(400)
-            .style('opacity', d => d.r > 35 ? 1 : 0);
+            .style('opacity', 1);
 
         // Hover interactions
         nodes.on('mouseenter', function (event, d) {
-            const data = d.data;
             tooltip.html(`
-                <h4>${data.name}</h4>
-                <p>${data.description}</p>
-                <p><span class="tooltip-stat">${data.count} species</span> &middot; Search interest: <span class="tooltip-stat">${data.searchInterest}/100</span></p>
+                <h4>${d.name}</h4>
+                <p>${d.description}</p>
+                <p><span class="tooltip-stat">${d.count} species</span> in this group</p>
             `);
             tooltip.classed('visible', true);
 
@@ -152,7 +169,8 @@
         const grid = document.createElement('div');
         grid.className = 'species-grid';
 
-        const sorted = [...DATA.topSpecies].sort((a, b) => b.searchInterest - a.searchInterest);
+        // Sort alphabetically by common name
+        const sorted = [...DATA.topSpecies].sort((a, b) => a.commonName.localeCompare(b.commonName));
 
         sorted.forEach((species, i) => {
             const card = document.createElement('div');
@@ -170,9 +188,6 @@
                 <h4>${species.commonName}</h4>
                 <p class="scientific">${species.scientificName}</p>
                 <p class="card-stat"><strong>${species.bestSpot}</strong> &middot; ${species.bestSeason}</p>
-                <div class="search-bar-mini">
-                    <div class="search-bar-fill" style="width: 0%; background: ${species.color};"></div>
-                </div>
             `;
 
             card.addEventListener('click', () => openModal(species));
@@ -180,30 +195,10 @@
         });
 
         container.appendChild(grid);
-
-        // Animate search bars on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const bars = entry.target.querySelectorAll('.search-bar-fill');
-                    bars.forEach((bar, i) => {
-                        const species = sorted[i];
-                        if (species) {
-                            setTimeout(() => {
-                                bar.style.width = species.searchInterest + '%';
-                            }, i * 40);
-                        }
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.2 });
-
-        observer.observe(grid);
     }
 
     // ==========================================
-    // PART 3 — Bar Chart (Search vs Abundance)
+    // PART 3 — Bar Chart (Abundance only)
     // ==========================================
     function initBarChart() {
         const container = document.getElementById('viz-bar-chart');
@@ -222,7 +217,17 @@
         const g = svg.append('g')
             .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-        const groups = [...DATA.fishGroups].sort((a, b) => b.searchInterest - a.searchInterest);
+        // Abundance data
+        const abundanceScale = {
+            'Sharks': 15, 'Rays': 25, 'Sea Turtles': 12, 'Clownfishes': 20,
+            'Wrasses': 90, 'Angelfishes': 30, 'Parrotfishes': 45, 'Butterflyfishes': 50,
+            'Surgeonfishes': 60, 'Groupers & Cods': 40, 'Damselfishes': 95, 'Moray Eels': 35
+        };
+
+        // Sort by abundance (most common first)
+        const groups = [...DATA.fishGroups].sort((a, b) =>
+            (abundanceScale[b.name] || 30) - (abundanceScale[a.name] || 30)
+        );
 
         // Scales
         const y = d3.scaleBand()
@@ -253,14 +258,7 @@
             .attr('text-anchor', 'middle')
             .style('font-size', '12px')
             .style('fill', '#5D6D7E')
-            .text('Interest / Abundance Score');
-
-        // Abundance bars (background)
-        const abundanceScale = {
-            'Sharks': 15, 'Rays': 25, 'Sea Turtles': 12, 'Clownfishes': 20,
-            'Wrasses': 90, 'Angelfishes': 30, 'Parrotfishes': 45, 'Butterflyfishes': 50,
-            'Surgeonfishes': 60, 'Groupers & Cods': 40, 'Damselfishes': 95, 'Moray Eels': 35
-        };
+            .text('How common on the reef (abundance score)');
 
         const barGroups = g.selectAll('.bar-group')
             .data(groups)
@@ -269,33 +267,19 @@
             .attr('class', 'bar-group')
             .attr('transform', d => `translate(0, ${y(d.name)})`);
 
-        // Abundance bar
+        // Abundance bars
         barGroups.append('rect')
             .attr('x', 0)
             .attr('y', 0)
             .attr('height', y.bandwidth())
-            .attr('fill', '#B8D4E3')
-            .attr('fill-opacity', 0.5)
-            .attr('rx', 3)
-            .attr('width', 0)
-            .transition()
-            .duration(800)
-            .delay((d, i) => i * 60)
-            .attr('width', d => x(abundanceScale[d.name] || 30));
-
-        // Search interest bar
-        barGroups.append('rect')
-            .attr('x', 0)
-            .attr('y', y.bandwidth() * 0.15)
-            .attr('height', y.bandwidth() * 0.7)
             .attr('fill', d => d.color)
             .attr('fill-opacity', 0.85)
             .attr('rx', 3)
             .attr('width', 0)
             .transition()
             .duration(800)
-            .delay((d, i) => i * 60 + 200)
-            .attr('width', d => x(d.searchInterest));
+            .delay((d, i) => i * 60)
+            .attr('width', d => x(abundanceScale[d.name] || 30));
 
         // Hover tooltip
         const tooltip = d3.select(container)
@@ -306,8 +290,7 @@
             const abundance = abundanceScale[d.name] || 30;
             tooltip.html(`
                 <h4>${d.name}</h4>
-                <p>Search Interest: <span class="tooltip-stat">${d.searchInterest}/100</span></p>
-                <p>Reef Abundance: <span class="tooltip-stat">${abundance}/100</span></p>
+                <p>Abundance: <span class="tooltip-stat">${abundance}/100</span></p>
                 <p style="margin-top:0.3rem;font-size:0.75rem;">${d.description}</p>
             `);
             tooltip.classed('visible', true);
@@ -320,21 +303,6 @@
         .on('mouseleave', function () {
             tooltip.classed('visible', false);
         });
-
-        // Legend
-        const legend = document.createElement('div');
-        legend.className = 'chart-legend';
-        legend.innerHTML = `
-            <div class="legend-item">
-                <div class="legend-swatch" style="background: var(--color-accent); opacity: 0.85;"></div>
-                Search Interest
-            </div>
-            <div class="legend-item">
-                <div class="legend-swatch" style="background: #B8D4E3; opacity: 0.5;"></div>
-                Reef Abundance
-            </div>
-        `;
-        container.appendChild(legend);
     }
 
     // ==========================================
@@ -528,7 +496,7 @@
     }
 
     // ==========================================
-    // PART 5 — Seasonal Line Chart
+    // PART 5 — Seasonal Line Chart (Water Temp & Visibility)
     // ==========================================
     function initSeasonalChart() {
         const container = document.getElementById('viz-seasonal');
@@ -555,10 +523,6 @@
             .range([0, width])
             .padding(0.5);
 
-        const yInterest = d3.scaleLinear()
-            .domain([0, 100])
-            .range([height, 0]);
-
         const yTemp = d3.scaleLinear()
             .domain([15, 30])
             .range([height, 0]);
@@ -570,7 +534,7 @@
         // Grid lines
         g.append('g')
             .attr('class', 'axis')
-            .call(d3.axisLeft(yInterest).ticks(5).tickSize(-width).tickFormat(''))
+            .call(d3.axisLeft(yTemp).ticks(5).tickSize(-width).tickFormat(''))
             .select('.domain').remove();
 
         g.selectAll('.axis line')
@@ -584,10 +548,10 @@
             .call(d3.axisBottom(x).tickSize(0))
             .select('.domain').remove();
 
-        // Y axis left
+        // Y axis left (temperature)
         g.append('g')
             .attr('class', 'axis')
-            .call(d3.axisLeft(yInterest).ticks(5))
+            .call(d3.axisLeft(yTemp).ticks(5).tickFormat(d => d + '°C'))
             .select('.domain').remove();
 
         g.append('text')
@@ -596,36 +560,37 @@
             .attr('y', -38)
             .attr('text-anchor', 'middle')
             .style('font-size', '11px')
-            .style('fill', '#5D6D7E')
-            .text('Search Interest');
+            .style('fill', '#E8735A')
+            .text('Water Temperature');
 
-        // --- Lines ---
-        // Search interest area
-        const area = d3.area()
+        // Y axis right (visibility)
+        g.append('g')
+            .attr('class', 'axis')
+            .attr('transform', `translate(${width}, 0)`)
+            .call(d3.axisRight(yVis).ticks(5).tickFormat(d => d + 'm'))
+            .select('.domain').remove();
+
+        g.append('text')
+            .attr('transform', 'rotate(90)')
+            .attr('x', height / 2)
+            .attr('y', -width - 45)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '11px')
+            .style('fill', '#1B998B')
+            .text('Visibility');
+
+        // Water temp area fill
+        const areaTemp = d3.area()
             .x(d => x(d.month))
             .y0(height)
-            .y1(d => yInterest(d.searchInterest))
+            .y1(d => yTemp(d.waterTemp))
             .curve(d3.curveCardinal.tension(0.4));
 
         g.append('path')
             .datum(data)
-            .attr('d', area)
-            .attr('fill', '#2E86AB')
+            .attr('d', areaTemp)
+            .attr('fill', '#E8735A')
             .attr('fill-opacity', 0.1);
-
-        // Search interest line
-        const lineInterest = d3.line()
-            .x(d => x(d.month))
-            .y(d => yInterest(d.searchInterest))
-            .curve(d3.curveCardinal.tension(0.4));
-
-        g.append('path')
-            .datum(data)
-            .attr('d', lineInterest)
-            .attr('fill', 'none')
-            .attr('stroke', '#2E86AB')
-            .attr('stroke-width', 3)
-            .attr('stroke-linecap', 'round');
 
         // Water temp line
         const lineTemp = d3.line()
@@ -638,8 +603,7 @@
             .attr('d', lineTemp)
             .attr('fill', 'none')
             .attr('stroke', '#E8735A')
-            .attr('stroke-width', 2)
-            .attr('stroke-dasharray', '6,3')
+            .attr('stroke-width', 3)
             .attr('stroke-linecap', 'round');
 
         // Visibility line
@@ -653,20 +617,19 @@
             .attr('d', lineVis)
             .attr('fill', 'none')
             .attr('stroke', '#1B998B')
-            .attr('stroke-width', 2)
-            .attr('stroke-dasharray', '2,3')
+            .attr('stroke-width', 3)
             .attr('stroke-linecap', 'round');
 
-        // Dots for search interest
-        g.selectAll('.dot-interest')
+        // Dots for temperature
+        g.selectAll('.dot-temp')
             .data(data)
             .enter()
             .append('circle')
-            .attr('class', 'dot-interest')
+            .attr('class', 'dot-temp')
             .attr('cx', d => x(d.month))
-            .attr('cy', d => yInterest(d.searchInterest))
+            .attr('cy', d => yTemp(d.waterTemp))
             .attr('r', 4)
-            .attr('fill', '#2E86AB')
+            .attr('fill', '#E8735A')
             .attr('stroke', '#fff')
             .attr('stroke-width', 2);
 
@@ -676,7 +639,7 @@
             .enter()
             .append('text')
             .attr('x', d => x(d.month))
-            .attr('y', d => yInterest(d.searchInterest) - 14)
+            .attr('y', d => yTemp(d.waterTemp) - 14)
             .attr('text-anchor', 'middle')
             .style('font-size', '8px')
             .style('fill', '#5D6D7E')
@@ -715,10 +678,9 @@
 
             tooltip.html(`
                 <h4>${d.month}</h4>
-                <div class="tt-row"><span class="tt-label">Search Interest</span><span class="tt-value" style="color:#2E86AB">${d.searchInterest}</span></div>
                 <div class="tt-row"><span class="tt-label">Water Temp</span><span class="tt-value" style="color:#E8735A">${d.waterTemp}\u00B0C</span></div>
                 <div class="tt-row"><span class="tt-label">Visibility</span><span class="tt-value" style="color:#1B998B">${d.visibility}m</span></div>
-                <div class="tt-row"><span class="tt-label">Top Sighting</span><span class="tt-value">${d.topSighting}</span></div>
+                <div class="tt-row"><span class="tt-label">Best Sighting</span><span class="tt-value">${d.topSighting}</span></div>
             `);
             tooltip.classed('visible', true);
 
@@ -735,10 +697,6 @@
         const legend = document.createElement('div');
         legend.className = 'chart-legend';
         legend.innerHTML = `
-            <div class="legend-item">
-                <div class="legend-swatch" style="background: #2E86AB;"></div>
-                Search Interest
-            </div>
             <div class="legend-item">
                 <div class="legend-swatch" style="background: #E8735A;"></div>
                 Water Temperature
@@ -822,7 +780,6 @@
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
             if (DATA) {
-                initBubbleChart();
                 initBarChart();
                 initSeasonalChart();
             }
