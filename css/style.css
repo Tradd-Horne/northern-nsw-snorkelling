@@ -1,0 +1,922 @@
+/* ============================================
+   SEARCHING FOR FISH — Style Sheet
+   Inspired by searchingforbirds.visualcinnamon.com
+   Ocean-warm palette, serif headings, clean data viz
+   ============================================ */
+
+/* --- CSS Variables --- */
+:root {
+    --color-bg: #F5F1EB;
+    --color-bg-alt: #F0F7F4;
+    --color-bg-blue: #EBF4F8;
+    --color-text: #2C3E50;
+    --color-text-light: #5D6D7E;
+    --color-heading: #1A3A4A;
+    --color-accent: #2E86AB;
+    --color-accent-warm: #F6AE2D;
+    --color-accent-coral: #E8735A;
+    --color-accent-teal: #1B998B;
+    --color-accent-sand: #D4A574;
+    --color-border: #D5DBDB;
+    --color-card-bg: #FFFFFF;
+    --color-footer-bg: #1A3A4A;
+    --color-footer-text: #C8D6DB;
+
+    --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-sans: 'Source Sans 3', 'Segoe UI', Roboto, sans-serif;
+
+    --max-width: 740px;
+    --max-width-wide: 960px;
+    --spacing-section: 4rem;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+a:hover {
+    border-bottom-color: var(--color-accent);
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+    font-family: var(--font-serif);
+    color: var(--color-heading);
+    line-height: 1.25;
+}
+
+em {
+    font-style: italic;
+    color: var(--color-accent);
+}
+
+strong {
+    font-weight: 600;
+}
+
+/* --- Hero --- */
+.hero {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+}
+
+.hero-fish-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.3s forwards;
+}
+
+.hero-fish {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.fish-silhouette {
+    width: 80px;
+    height: 40px;
+    color: var(--color-accent);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.hero-fish:hover .fish-silhouette {
+    transform: translateY(-4px);
+    color: var(--color-accent-teal);
+}
+
+.hero-fish-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.hero-title {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 0.8rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.6s forwards;
+    letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.8s forwards;
+}
+
+.hero-meta {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1s forwards;
+}
+
+.meta-sep {
+    margin: 0 0.5rem;
+}
+
+.hero-credit {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.1s forwards;
+}
+
+/* --- Wave Dividers --- */
+.wave-divider {
+    width: 100%;
+    line-height: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.wave-divider svg {
+    width: 100%;
+    height: 50px;
+    display: block;
+}
+
+.wave-divider--reverse {
+    transform: scaleX(-1);
+}
+
+/* --- Sections --- */
+.section {
+    padding: var(--spacing-section) 2rem;
+}
+
+.section--intro {
+    background-color: var(--color-bg-blue);
+}
+
+.section--alt {
+    background-color: var(--color-bg-alt);
+}
+
+.section--blue {
+    background-color: var(--color-bg-blue);
+}
+
+.section-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.section-content p {
+    margin-bottom: 1.2rem;
+}
+
+.lead-text {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-heading);
+    margin-bottom: 1.5rem !important;
+    line-height: 1.4;
+}
+
+.part-label {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+}
+
+.section-heading {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.chart-instruction {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    text-align: center;
+    font-style: italic;
+    margin-top: 1rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* --- Visualization Containers --- */
+.viz-container {
+    max-width: var(--max-width-wide);
+    margin: 2rem auto;
+    padding: 0 1rem;
+    position: relative;
+    min-height: 400px;
+}
+
+.viz-loading {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--color-text-light);
+    font-style: italic;
+}
+
+/* --- Bubble Chart (Part 1) --- */
+.bubble-group {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.bubble-group:hover {
+    opacity: 0.85;
+}
+
+.bubble-label {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    fill: #fff;
+    pointer-events: none;
+    text-anchor: middle;
+}
+
+.bubble-count {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 12px;
+    fill: rgba(255,255,255,0.8);
+    pointer-events: none;
+    text-anchor: middle;
+}
+
+.bubble-tooltip {
+    position: absolute;
+    background: var(--color-card-bg);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    max-width: 280px;
+    z-index: 10;
+    border: 1px solid var(--color-border);
+}
+
+.bubble-tooltip.visible {
+    opacity: 1;
+}
+
+.bubble-tooltip h4 {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--color-heading);
+    margin-bottom: 0.3rem;
+}
+
+.bubble-tooltip p {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+}
+
+.bubble-tooltip .tooltip-stat {
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+/* --- Species Grid (Part 2) --- */
+.species-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.species-card {
+    background: var(--color-card-bg);
+    border-radius: 12px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--color-border);
+    position: relative;
+    overflow: hidden;
+}
+
+.species-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--card-accent, var(--color-accent));
+}
+
+.species-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.species-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+    font-size: 1.5rem;
+}
+
+.species-card h4 {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--color-heading);
+    margin-bottom: 0.2rem;
+}
+
+.species-card .scientific {
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--color-text-light);
+    margin-bottom: 0.5rem;
+}
+
+.species-card .card-stat {
+    font-size: 0.72rem;
+    color: var(--color-text-light);
+}
+
+.species-card .card-stat strong {
+    color: var(--color-text);
+}
+
+.search-bar-mini {
+    height: 6px;
+    background: #E8E8E8;
+    border-radius: 3px;
+    margin-top: 0.6rem;
+    overflow: hidden;
+}
+
+.search-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s ease;
+}
+
+/* --- Bar Chart (Part 3) --- */
+.bar-chart-container {
+    position: relative;
+}
+
+.bar-group rect {
+    transition: opacity 0.2s ease;
+}
+
+.bar-group:hover rect {
+    opacity: 0.8;
+}
+
+.bar-label {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    fill: var(--color-text);
+}
+
+.bar-value {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    fill: var(--color-text-light);
+}
+
+.axis text {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    fill: var(--color-text-light);
+}
+
+.axis line, .axis path {
+    stroke: var(--color-border);
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+}
+
+.legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
+
+/* --- Map (Part 4) --- */
+.map-container {
+    position: relative;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.map-svg-wrap {
+    flex: 1;
+    min-width: 300px;
+    max-width: 450px;
+}
+
+.map-info-panel {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    background: var(--color-card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.map-info-panel h3 {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-heading);
+}
+
+.map-info-panel .region-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.map-spot {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.map-spot:hover {
+    transform: scale(1.15);
+}
+
+.map-spot circle {
+    transition: r 0.2s ease, fill-opacity 0.2s ease;
+}
+
+.map-spot.active circle {
+    fill-opacity: 1;
+    stroke: #fff;
+    stroke-width: 2;
+}
+
+.species-list {
+    list-style: none;
+}
+
+.species-list li {
+    padding: 0.4rem 0;
+    font-size: 0.82rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.species-list li:last-child {
+    border-bottom: none;
+}
+
+.species-rank {
+    font-weight: 600;
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    min-width: 1.5rem;
+}
+
+/* --- Seasonal Chart (Part 5) --- */
+.seasonal-tooltip {
+    position: absolute;
+    background: var(--color-card-bg);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+    border: 1px solid var(--color-border);
+    font-size: 0.78rem;
+}
+
+.seasonal-tooltip.visible {
+    opacity: 1;
+}
+
+.seasonal-tooltip h4 {
+    font-family: var(--font-serif);
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.seasonal-tooltip .tt-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.15rem;
+}
+
+.seasonal-tooltip .tt-label {
+    color: var(--color-text-light);
+}
+
+.seasonal-tooltip .tt-value {
+    font-weight: 600;
+}
+
+/* --- Closing CTA --- */
+.closing-cta {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: var(--color-card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+}
+
+.closing-cta h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+
+.cta-spots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.cta-spot {
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--color-bg-blue);
+    border-left: 3px solid var(--color-accent);
+}
+
+.cta-spot strong {
+    font-family: var(--font-serif);
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--color-heading);
+}
+
+.cta-spot p {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* --- Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 58, 74, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 2rem;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-card {
+    background: var(--color-card-bg);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.modal-overlay.active .modal-card {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-text-light);
+    transition: color 0.2s ease;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.modal-close:hover {
+    color: var(--color-text);
+    background: #f0f0f0;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.modal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.modal-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.15rem;
+}
+
+.modal-scientific {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+.modal-description {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+}
+
+.modal-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.modal-stat {
+    padding: 0.6rem 0.8rem;
+    background: var(--color-bg);
+    border-radius: 8px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-light);
+    margin-bottom: 0.2rem;
+}
+
+.stat-value {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-heading);
+}
+
+/* --- Footer --- */
+.site-footer {
+    background: var(--color-footer-bg);
+    color: var(--color-footer-text);
+}
+
+.site-footer .wave-divider--reverse {
+    transform: scaleX(-1);
+}
+
+.footer-content {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+    padding: 3rem 2rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.footer-content h3 {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 0.8rem;
+}
+
+.footer-content p {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+}
+
+.footer-content a {
+    color: var(--color-accent-warm);
+}
+
+.footer-small {
+    font-size: 0.72rem !important;
+    opacity: 0.7;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-heading {
+        font-size: 1.6rem;
+    }
+
+    .lead-text {
+        font-size: 1.4rem;
+    }
+
+    .hero-fish-row {
+        gap: 0.8rem;
+    }
+
+    .fish-silhouette {
+        width: 55px;
+        height: 28px;
+    }
+
+    .hero-fish-label {
+        font-size: 0.55rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .map-container {
+        flex-direction: column;
+    }
+
+    .map-svg-wrap, .map-info-panel {
+        max-width: 100%;
+    }
+
+    .species-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .modal-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-spots {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-fish-row {
+        gap: 0.5rem;
+    }
+
+    .fish-silhouette {
+        width: 40px;
+        height: 20px;
+    }
+
+    .section {
+        padding: 2.5rem 1.2rem;
+    }
+
+    .viz-container {
+        padding: 0 0.5rem;
+    }
+}

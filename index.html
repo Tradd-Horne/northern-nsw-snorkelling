@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Searching for Fish — Northern NSW & SE Queensland Snorkelling</title>
+    <meta name="description" content="An interactive visual exploration of the marine life you'll encounter snorkelling in Northern New South Wales and Southeast Queensland.">
+    <meta property="og:title" content="Searching for Fish">
+    <meta property="og:description" content="Exploring the underwater world of Northern NSW & SE Queensland">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== HEADER / HERO ===== -->
+    <header class="hero">
+        <div class="hero-fish-row">
+            <div class="hero-fish">
+                <svg viewBox="0 0 120 60" class="fish-silhouette" aria-hidden="true">
+                    <path d="M10,30 Q30,5 60,15 Q80,8 100,20 L115,30 L100,40 Q80,52 60,45 Q30,55 10,30 Z" fill="currentColor" opacity="0.15"/>
+                    <circle cx="90" cy="28" r="3" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <span class="hero-fish-label">Green Sea Turtle</span>
+            </div>
+            <div class="hero-fish">
+                <svg viewBox="0 0 120 60" class="fish-silhouette" aria-hidden="true">
+                    <path d="M5,30 Q20,10 50,20 Q70,5 95,15 L115,30 L95,45 Q70,55 50,40 Q20,50 5,30 Z" fill="currentColor" opacity="0.15"/>
+                    <circle cx="85" cy="25" r="3" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <span class="hero-fish-label">Leopard Shark</span>
+            </div>
+            <div class="hero-fish">
+                <svg viewBox="0 0 120 60" class="fish-silhouette" aria-hidden="true">
+                    <path d="M15,30 Q25,12 55,18 Q75,8 100,22 L112,30 L100,38 Q75,52 55,42 Q25,48 15,30 Z" fill="currentColor" opacity="0.15"/>
+                    <circle cx="88" cy="27" r="2.5" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <span class="hero-fish-label">Eastern Blue Groper</span>
+            </div>
+            <div class="hero-fish">
+                <svg viewBox="0 0 120 60" class="fish-silhouette" aria-hidden="true">
+                    <path d="M8,30 Q22,8 55,16 Q78,4 102,18 L116,30 L102,42 Q78,56 55,44 Q22,52 8,30 Z" fill="currentColor" opacity="0.15"/>
+                    <circle cx="92" cy="26" r="2" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <span class="hero-fish-label">Clown Anemonefish</span>
+            </div>
+            <div class="hero-fish">
+                <svg viewBox="0 0 120 60" class="fish-silhouette" aria-hidden="true">
+                    <path d="M10,30 Q28,6 58,14 Q80,3 105,20 L118,30 L105,40 Q80,57 58,46 Q28,54 10,30 Z" fill="currentColor" opacity="0.15"/>
+                    <circle cx="93" cy="27" r="3" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <span class="hero-fish-label">Manta Ray</span>
+            </div>
+            <div class="hero-fish">
+                <svg viewBox="0 0 120 60" class="fish-silhouette" aria-hidden="true">
+                    <path d="M12,30 Q26,10 52,18 Q74,6 98,20 L114,30 L98,40 Q74,54 52,42 Q26,50 12,30 Z" fill="currentColor" opacity="0.15"/>
+                    <circle cx="88" cy="26" r="2.5" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <span class="hero-fish-label">Weedy Seadragon</span>
+            </div>
+        </div>
+
+        <h1 class="hero-title">Searching for Fish</h1>
+        <p class="hero-subtitle">An interactive exploration of the marine life beneath the surface<br>along Northern NSW &amp; Southeast Queensland</p>
+        <div class="hero-meta">
+            <span>April 2026</span>
+            <span class="meta-sep">&middot;</span>
+            <span>12 min read</span>
+        </div>
+        <p class="hero-credit">Concept, data &amp; development by <strong>Tradd Horne</strong></p>
+    </header>
+
+    <!-- ===== WAVE DIVIDER ===== -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,0 1440,40 L1440,80 L0,80 Z" fill="#EBF4F8"/>
+        </svg>
+    </div>
+
+    <!-- ===== INTRO SECTION ===== -->
+    <section class="section section--intro">
+        <div class="section-content">
+            <p class="lead-text">It started with a turtle.</p>
+            <p>I was floating face-down at Cook Island off Tweed Heads, the water clear enough to see twenty metres, when a green sea turtle the size of a coffee table glided directly beneath me. It looked up — or at least I convinced myself it did — and for a few seconds the entire ocean narrowed to just the two of us.</p>
+            <p>I went home and Googled everything: <em>green sea turtle size, green sea turtle diet, can green turtles recognise humans</em>. That single encounter pulled me into a world I hadn't known existed right off our coastline.</p>
+            <p>This project explores that curiosity — what people search for, what they find, and the remarkable underwater world that sits just a mask and snorkel away from Byron Bay to Moreton Bay.</p>
+        </div>
+    </section>
+
+    <div class="wave-divider wave-divider--reverse">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,40 C180,0 360,80 540,40 C720,0 900,80 1080,40 C1260,0 1440,80 1440,40 L1440,0 L0,0 Z" fill="#EBF4F8"/>
+        </svg>
+    </div>
+
+    <!-- ===== PART ONE ===== -->
+    <section class="section section--part" id="part-one">
+        <div class="section-content">
+            <div class="part-label">Part One</div>
+            <h2 class="section-heading">"I'm Not a Fish Person"</h2>
+            <p>You might not think of yourself as someone who knows anything about marine life. But you know more than you realise. If I asked you to picture a shark, a ray, a clownfish — you'd have an image instantly. We carry a mental catalogue of ocean creatures shaped by documentaries, childhood trips to the aquarium, and yes, <em>Finding Nemo</em>.</p>
+            <p>When people search online, they tend to start with these broad groups — "shark", "ray", "turtle" — rather than specific species. The chart below shows which groups of marine life generate the most search interest from snorkellers in our region.</p>
+            <p class="chart-instruction">Hover over any bubble to explore each group</p>
+        </div>
+        <div class="viz-container" id="viz-bubble-chart">
+            <div class="viz-loading">Loading visualisation...</div>
+        </div>
+        <div class="section-content">
+            <p><strong>Sea turtles</strong> and <strong>sharks</strong> dominate search interest by a wide margin — even though many of the smaller, more colourful reef fish are far more commonly encountered while snorkelling. There's something about the charismatic megafauna that captures our imagination.</p>
+        </div>
+    </section>
+
+    <!-- ===== WAVE DIVIDER ===== -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,0 1440,40 L1440,80 L0,80 Z" fill="#F0F7F4"/>
+        </svg>
+    </div>
+
+    <!-- ===== PART TWO ===== -->
+    <section class="section section--part section--alt" id="part-two">
+        <div class="section-content">
+            <div class="part-label">Part Two</div>
+            <h2 class="section-heading">The Spark Fish</h2>
+            <p>In birdwatching, they call it a "spark bird" — the one encounter that ignites a lifelong fascination. Snorkelling has its own version. For many people along our coastline, it's a particular moment: the first time a leopard shark rests beneath you at Julian Rocks, or a manta ray eclipses the sun overhead at Point Lookout.</p>
+            <p>From that moment, the generic search — "shark" — becomes specific: <em>"leopard shark Byron Bay"</em>, <em>"manta ray season Stradbroke"</em>. You start learning names, seasons, behaviours.</p>
+            <p>Of the hundreds of species found in our waters, only about <strong>20 have significant search interest</strong>. These are the spark fish — the ones that make people care enough to learn their names.</p>
+            <p class="chart-instruction">Click any species card to learn more</p>
+        </div>
+        <div class="viz-container" id="viz-species-grid">
+            <div class="viz-loading">Loading visualisation...</div>
+        </div>
+    </section>
+
+    <div class="wave-divider wave-divider--reverse">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,40 C180,0 360,80 540,40 C720,0 900,80 1080,40 C1260,0 1440,80 1440,40 L1440,0 L0,0 Z" fill="#F0F7F4"/>
+        </svg>
+    </div>
+
+    <!-- ===== PART THREE ===== -->
+    <section class="section section--part" id="part-three">
+        <div class="section-content">
+            <div class="part-label">Part Three</div>
+            <h2 class="section-heading">What We See — and What We Don't</h2>
+            <p>There's a fascinating disconnect between what we <em>search</em> for and what actually lives beneath the surface. Sharks and turtles dominate our curiosity, but the fish you'll encounter most often while snorkelling are the ones you probably can't name — damselfishes guarding their patch of reef, wrasses darting between corals, surgeonfish grazing in schools.</p>
+            <p>The chart below compares how much we <em>search</em> for each group versus how <em>abundant</em> they actually are on our reefs. The mismatch reveals our bias toward the spectacular over the everyday.</p>
+            <p class="chart-instruction">Hover over the bars to compare search interest with abundance</p>
+        </div>
+        <div class="viz-container" id="viz-bar-chart">
+            <div class="viz-loading">Loading visualisation...</div>
+        </div>
+        <div class="section-content">
+            <p>Wrasses and damselfishes — the backbone of any healthy reef — barely register in search data. Meanwhile, species that need urgent conservation, like the <strong>grey nurse shark</strong> (critically endangered in Australia) and the <strong>green sea turtle</strong> (endangered), receive enormous attention. In this case, our fascination might actually be helping — public interest drives funding, protection, and awareness.</p>
+        </div>
+    </section>
+
+    <!-- ===== WAVE DIVIDER ===== -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,0 1440,40 L1440,80 L0,80 Z" fill="#EBF4F8"/>
+        </svg>
+    </div>
+
+    <!-- ===== PART FOUR ===== -->
+    <section class="section section--part section--blue" id="part-four">
+        <div class="section-content">
+            <div class="part-label">Part Four</div>
+            <h2 class="section-heading">Where to Look</h2>
+            <p>Our stretch of coastline — from Moreton Bay in the north to the Solitary Islands in the south — sits at a remarkable intersection. The warm East Australian Current pushes tropical species south while cool temperate waters hold their ground. The result is one of the most biodiverse marine corridors in the world.</p>
+            <p>Each snorkelling region has its own character, its own signature species, and its own best season. The map below shows the top sites and what you're most likely to find at each.</p>
+            <p class="chart-instruction">Click any location on the map to see its top species</p>
+        </div>
+        <div class="viz-container" id="viz-map">
+            <div class="viz-loading">Loading visualisation...</div>
+        </div>
+    </section>
+
+    <div class="wave-divider wave-divider--reverse">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,40 C180,0 360,80 540,40 C720,0 900,80 1080,40 C1260,0 1440,80 1440,40 L1440,0 L0,0 Z" fill="#EBF4F8"/>
+        </svg>
+    </div>
+
+    <!-- ===== PART FIVE ===== -->
+    <section class="section section--part" id="part-five">
+        <div class="section-content">
+            <div class="part-label">Part Five</div>
+            <h2 class="section-heading">The Rhythm of the Reef</h2>
+            <p>The ocean here has a pulse. Summer brings warm water, leopard sharks, and manta rays. Winter delivers crystal visibility and grey nurse shark aggregations. Spring migrations paint the reef with tropical visitors, and autumn offers the sweet spot — warm enough for comfort, clear enough to see.</p>
+            <p>The chart below tracks how snorkelling interest rises and falls through the year, alongside water temperature and visibility — the three factors that shape every snorkelling season.</p>
+            <p class="chart-instruction">Hover over the chart to see monthly details</p>
+        </div>
+        <div class="viz-container" id="viz-seasonal">
+            <div class="viz-loading">Loading visualisation...</div>
+        </div>
+        <div class="section-content">
+            <p>The peak in February aligns with school holidays, warm water, and the best chance of encountering tropical visitors. But seasoned snorkellers know: <strong>winter is underrated</strong>. The water drops to 19°C, but visibility can exceed 20 metres. Grey nurse sharks gather at Fish Rock Cave, and the crowds disappear entirely.</p>
+        </div>
+    </section>
+
+    <!-- ===== WAVE DIVIDER ===== -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,0 1440,40 L1440,80 L0,80 Z" fill="#F0F7F4"/>
+        </svg>
+    </div>
+
+    <!-- ===== PART SIX ===== -->
+    <section class="section section--part section--alt" id="part-six">
+        <div class="section-content">
+            <div class="part-label">Part Six</div>
+            <h2 class="section-heading">Paying Attention</h2>
+            <p>You don't need to be a marine biologist. You don't need expensive gear or a boat. All you need is a mask, a snorkel, and the willingness to put your face in the water and look.</p>
+            <p>This coastline — <em>our</em> coastline — is home to leopard sharks that rest like sleeping dogs on the sand, manta rays with wingspans wider than your car, clownfish that will stare you down from their anemone fortress, and blue gropers so curious they'll follow you around like underwater labradors.</p>
+            <p>Every species on this page can be seen without scuba certification, without a boat, and often without even getting your hair wet in anything deeper than chest-height water.</p>
+            <p>The easiest way to discover this world is simply to pay attention.</p>
+
+            <div class="closing-cta">
+                <h3>Start exploring</h3>
+                <div class="cta-spots">
+                    <div class="cta-spot">
+                        <strong>Beginners</strong>
+                        <p>Cook Island, Tweed — calm, shallow, turtles almost guaranteed</p>
+                    </div>
+                    <div class="cta-spot">
+                        <strong>Intermediate</strong>
+                        <p>Julian Rocks, Byron Bay — diverse marine life, seasonal sharks and rays</p>
+                    </div>
+                    <div class="cta-spot">
+                        <strong>Adventurous</strong>
+                        <p>Point Lookout, Stradbroke — manta rays, strong currents, unforgettable</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="wave-divider wave-divider--reverse">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+                <path d="M0,40 C180,0 360,80 540,40 C720,0 900,80 1080,40 C1260,0 1440,80 1440,40 L1440,0 L0,0 Z" fill="#F0F7F4"/>
+            </svg>
+        </div>
+        <div class="footer-content">
+            <div class="footer-credits">
+                <h3>About this project</h3>
+                <p><strong>Searching for Fish</strong> is a visual exploration of snorkelling and marine life along the Northern NSW and Southeast Queensland coastline. Inspired by <a href="https://searchingforbirds.visualcinnamon.com/" target="_blank" rel="noopener">Searching for Birds</a> by Nadieh Bremer.</p>
+                <p class="footer-small">Species data compiled from Atlas of Living Australia, Reef Life Survey, and local dive operator sighting records. Search interest patterns are illustrative.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Data &amp; methodology</h3>
+                <p>This project catalogues marine species commonly encountered while snorkelling at major sites between Moreton Bay (QLD) and the Solitary Islands (NSW). Fish groups, abundance ratings, and seasonal patterns are based on published survey data and local knowledge.</p>
+                <p>Built with D3.js, vanilla JavaScript, and hand-crafted SVG.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Tradd Horne &middot; Northern NSW Snorkelling</p>
+        </div>
+    </footer>
+
+    <!-- ===== SPECIES MODAL ===== -->
+    <div class="modal-overlay" id="species-modal">
+        <div class="modal-card">
+            <button class="modal-close" aria-label="Close">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modal-icon"></div>
+                <div>
+                    <h3 class="modal-title" id="modal-title"></h3>
+                    <p class="modal-scientific" id="modal-scientific"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description" id="modal-description"></p>
+                <div class="modal-stats">
+                    <div class="modal-stat">
+                        <span class="stat-label">Max Size</span>
+                        <span class="stat-value" id="modal-size"></span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Diet</span>
+                        <span class="stat-value" id="modal-diet"></span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Best Spot</span>
+                        <span class="stat-value" id="modal-spot"></span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Best Season</span>
+                        <span class="stat-value" id="modal-season"></span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Abundance</span>
+                        <span class="stat-value" id="modal-abundance"></span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Conservation</span>
+                        <span class="stat-value" id="modal-conservation"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
