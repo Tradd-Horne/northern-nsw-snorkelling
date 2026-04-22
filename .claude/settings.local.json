@@ -3,7 +3,10 @@
     "allow": [
       "Bash(file:*)",
       "Bash(python3:*)",
-      "Bash(pip3 install:*)"
+      "Bash(pip3 install:*)",
+      "Bash(convert:*)",
+      "Bash(magick:*)",
+      "Bash(pip3 list:*)"
     ]
   }
 }
